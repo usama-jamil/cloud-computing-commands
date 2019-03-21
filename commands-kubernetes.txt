@@ -1,0 +1,120 @@
+Resource means Pod node namespace
+
+minikube start
+to start the minkube first it download the isofile
+
+minikube status 
+it tells the state of the minkube is running or stopped
+
+kubectl cluster-info
+it tells master node is running or CoreDns is runnig
+
+what is cluster : a collection of computers coordinated work as a single unit
+
+sudo minikube --vm-driver none start
+for mu to start minikube in my local machine
+
+kubectl get nodes 
+it tells the running nodes of kubernetes
+
+NAME  STATUS  ROLES AGE VERSION
+
+kubectl describe node minikube OR kubectl describe {resource} {resource Name}
+describe: it tells the detail description of that resource
+
+alias k=kubectl
+to give a short name for command
+
+
+kubectl create -f myapp.yaml
+it read instruction and and create that thing
+
+nano pod1.yaml OR nano {filename}
+
+kubectl get pods
+tells the list of the pods 
+
+kubectl describe pods {podName}
+tell the detail description of the pod
+
+kubectl get pod {podName} -o yaml
+-o flag means output
+tell the detail of pod in yaml format
+
+po is alias of pod
+no is alias of node
+
+kubectl explian pods OR kubectl explian {Resource Name}
+
+kubectl run myapp --image={imageName} --port=8080 --restart=Never
+create pod without yaml file
+
+kubectl port-forward myapp 9000:80
+it forward pod port to host machine port
+9000 host machine port
+80   pod port
+
+labels 
+it found in metadata 
+it hold key value pair
+
+kubectl run myapp --image={imageName} --port=8080 --restart=Never --labels="app:web"
+make pods with labels
+
+kubectl get po --show-labels
+show pod with labels
+
+kubectl get po -L {key1},{key2},{keyn}
+show pods label wtih seprate column
+
+kubectl label po {podName} {key}={value}
+create label in that pod
+
+kubectl label po {podName} {key}={value} --overwrite
+change label name in that pod
+
+kubectl get pod -l {key}!={value2}
+get list of pods that dont have value2
+
+kubectl get pod -l {key} in ({value1},{value2})
+get list of pods that have value1 and value2
+
+kubectl get pod -l {key} in ({value1},{value2})
+get list of pods that have value1 and vlaue2
+
+
+Node selector
+ found in spec: of the pod 
+here we describe the key value pair about where we deploy that node
+
+kubectl explain pod.metadata
+
+
+Annotation
+is a key value pair which we add infromation of that resource
+IT found in metadata
+
+kubectl annotate pod {podName} {key}={value}
+
+
+Namesapce
+It found in meta data
+
+kubectl get ns OR kubectl get namespace
+list of all namespaces
+
+kubectl get pod --namespace {Namesapce}
+get list of specific namespace
+
+kubectl create ns my-new-namespace
+
+
+kubectl run myapp --image={imageName} --port=8080 --restart=Never --labels="app:web" --namespace=kubeclass
+
+kubectl delete po {podName} OR kubectl delete {resource} {resourceName}
+delete the resource or specific resource
+
+kubectl delete pod myapp -n {namespace}
+-n flag is for namespace
+
+ 
