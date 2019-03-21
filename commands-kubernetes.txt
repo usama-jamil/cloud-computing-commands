@@ -118,3 +118,4 @@ kubectl delete pod myapp -n {namespace}
 -n flag is for namespace
 
  
+doing something
