@@ -1,0 +1,131 @@
+Helm 
+https://www.cncf.io/blog/2018/08/07/helm-the-package-manager-for-kubernetes/ 
+https://www.youtube.com/watch?v=vQX5nokoqrQ 
+https://www.youtube.com/watch?v=Jj1Ueq_Lz6A 
+https://www.digitalocean.com/community/tutorials/an-introduction-to-helm-the-package-manager-for-kubernetes 
+https://dzone.com/articles/deploy-to-kubernetes-with-helm 
+https://dzone.com/articles/create-install-upgrade-and-rollback-a-helm-chart-p 
+https://docs.helm.sh/using_helm/#quickstart ChartMuseum 
+https://medium.com/stakater/using-chartmuseum-as-a-chart-repository-for-helm-b4d12205f4c9 
+https://www.youtube.com/watch?v=u3VqswB-TJo 
+
+Monocular 
+https://engineering.bitnami.com/articles/what-the-helm-is-monocular.html 
+https://www.youtube.com/watch?v=wQ0gmLIKQWI 
+
+Kubeapps 
+KubeApps.com,
+a public website powered by Monocular to interface with the official Kubernetes Charts repository. 
+https://github.com/kubeapps/kubeapps/blob/master/docs/user/getting-started.md 
+https://github.com/kubeapps/kubeapps 
+https://github.com/kubeapps/kubeapps/issues/507 
+
+Serverless Service Mesh 
+https://kubeless.io/docs/quick-start/ 
+https://medium.com/containerum/managing-service-mesh-on-kubernetes-with-istio-60ee5e8c5efe 
+https://engineering.bitnami.com/articles/serverless-service-mesh-with-kubeless-and-istio.html
+
+
+
+helm repo  is index.yaml  that holds all  the Charts
+
+
+A command line tool, helm, which provides the user interface to all Helm functionality.
+A companion server component, tiller, that runs on your Kubernetes cluster, listens for commands from helm, and handles the configuration and deployment of software releases on the cluster.
+The Helm packaging format, called charts.
+An official curated charts repository with prepackaged charts for popular open-source software projects.
+
+
+package-name/
+  charts/
+  templates/
+  Chart.yaml
+  LICENSE
+  README.md
+  requirements.yaml
+  values.yaml
+
+  charts/:
+   Manually managed chart dependencies can be placed in this directory, though it is typically better to use requirements.yaml to dynamically link dependencies.
+
+templates/: 
+This directory contains template files that are combined with configuration values (from values.yaml and the command line) and rendered into Kubernetes manifests. The templates use the Go programming language's template format.
+
+Chart.yaml: 
+A YAML file with metadata about the chart, such as chart name and version, maintainer information, a relevant website, and search keywords.
+
+LICENSE: 
+A plaintext license for the chart.
+
+README.md: 
+A readme file with information for users of the chart.
+
+requirements.yaml: 
+A YAML file that lists the chart's dependencies.
+
+values.yaml: 
+A YAML file of default configuration values for the chart.
+
+
+A Helm chart repo is a simple HTTP site that serves an index.yaml file and .tar.gz packaged charts. 
+
+
+chart.yaml 
+apiVersion: v1 
+appVersion: "0.0.2-SNAPSHOT" 
+description: A Helm chart for Kubernetes 
+name: myhelmchartplanet 
+version: 0.1.0
+
+apiVersion : this is the Chart API version and should always have the value v1 (required)
+ 
+ appVersion : this is more informative and contains the version of the application which is contained in the package. In our case 0.0.2-SNAPSHOT. (optional)
+ 
+ description : a short description about the Chart (optional)
+ 
+ name : the name of the Chart (required)
+ 
+ version : the version of our Chart. As you can see, 
+ this is a different thing than the version of our application. 
+ They can be the same, but it is not required, as they are independent of each other. 
+ The version number has to be in the SemVer 2 format (required).
+
+ Chart:
+ A Chart is a Helm package. 
+ It contains all of the files needed to run your application inside of a Kubernetes cluster. 
+ Think of it like your software sources in a Git repository. 
+ The official Helm charts can be found on GitHub.
+
+ Releases:
+ A Release is an instance of a chart running in a Kubernetes cluster. 
+ Every time you install a chart, it becomes a new release.
+
+ChartDefination:
+ A chart is a collection of files that describe a related set of Kubernetes resources. 
+ A single chart might be used to deploy something simple, 
+ like a memcached pod, or something complex, 
+ like a full web app stack with HTTP servers, databases, caches, and so on.
+
+ Helm and Tiller:
+ Helm consists of two main components: Helm Client and Tiller Server. 
+ Helm Client is responsible for the local chart development, repositories management, and 
+ interaction with the Tiller Server, which, in its turn, handles the interaction with the Kubernetes API (installs, upgrades and uninstalls charts).
+
+ Setting up ChartMuseum
+Download the binary by using the link below or you can always download a specific release from their github
+Make the binary executable by running chmod +x chartmuseum
+Move the binary to your bin location
+Verify that it is installed by running chartmuseum --version
+
+Service Mesh
+an infrastructure in which multiple microservices can interact with each other in a fast and reliable way.
+Basically, it is a dedicated infrastructure layer that ensures communication between services.
+
+kubeless:
+ a serverless platform that allows you to easily create microservices (usually called functions) that run on a Kubernetes cluster
+
+Install Istio:
+1: curl -L https://git.io/getLatestIstio | sh -
+   cd istio-1.0.2
+   export PATH=$PWD/bin:$PATH
+2: kubectl apply -f install/kubernetes/istio-demo-auth.yaml

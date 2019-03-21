@@ -117,5 +117,9 @@ delete the resource or specific resource
 kubectl delete pod myapp -n {namespace}
 -n flag is for namespace
 
+
+get pods -n kubeless
+
+get pods -n istio-system
  
 doing something

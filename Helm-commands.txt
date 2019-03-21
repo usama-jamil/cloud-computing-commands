@@ -1,0 +1,99 @@
+helm init
+this configure your local files
+and install Tiller in kubernetes cluster 
+
+helm --upgrade
+to update helm and tiller
+
+
+kubectl get po -n kube-system
+Tiller pod is in that namespace
+
+helm version
+tells the version of helm
+
+helm list
+show list of charts that installed
+
+helm search [chart name  query]
+show the charts in repository
+
+helm repo list 
+show the  list of  repository
+
+helm install [repoName]/[chartName]
+install chart from repository
+this is record as release in helm
+
+helm history [releaseName]
+
+helm status [releaseName]
+
+helm repo add [repoName] https://[repoLink]
+
+helm package [chartName]
+this  package can be on kubeapps.com or  any repo
+
+helm fetch [chartName]
+download chart  in .tgz extension
+
+helm inspect values [chartName]
+to show  values.yaml
+
+helm create [chartName]
+to create chart
+
+helm lint  [chartName]
+check there is no syntax error in it
+
+helm install stable/grafana --name mygrafana --set service.type=NodePort
+install grafana chart with  name mygrafana and set  the value of service.type=NodePort  in values.yaml
+After the install command, we add the chart we want to install, stable/grafana in this case, we give our release a name, mygrafana, and we set the parameter  service.type  to NodePort . Another way to set parameters is by adding a values.yaml file to the install  command which contains the parameter values.
+
+
+helm upgrade mygrafana stable/grafana --reuse-values --set replicas=2
+With the upgrade command, it is possible to upgrade the release to a new Chart version or to update parameters. In our case, we will update a parameter in order to use 2 replicas instead of 1. In order to preserve previous parameters which have been set, we also provide the  --reuse-values  option. The upgrade  command also needs the release name (mygrafana) and the chart (stable/grafana).
+
+helm list -all
+to show all release (deleted release)
+
+helm delete --purge mygrafana
+When you want to completely remove the release, use the  --purge  option with the delete  command. Check that it has been completely removed with the list  command with option  --all . Now it is also removed from the history.
+
+helm init --history-max 200
+Setting --history-max on helm init is recommended as configmaps and other objects in helm history can grow large in number if not purged by max limit. Without a max history set the history is kept indefinitely, leaving a large number of records for helm and tiller to maintain.
+
+chartmuseum --port=<[port] --storage="local" --storage-local-rootdir="[chart-dir]"
+Replace [chart-dir] and [port] in the following command and run it on a terminal
+ChartMuseum will use [chart-dir] for its storage
+
+kubeless function deploy \
+  --from-file functions/tempv1.js \
+  --handler temp.sample \
+  --runtime nodejs6 \
+  --label version=v1 \
+  --label app=temp \
+  tempv1
+
+from-file: the file path
+handler: function name in that file
+rintime: enviroment where function is run
+
+kubeless function deploy hello --runtime python2.7 \
+                                --from-file test.py \
+                                --handler test.hello
+
+hello: 
+This is the name of the function we want to deploy.
+--runtime python2.7: 
+This is the runtime we want to use to run our function. Available runtimes are shown in the help information.
+--from-file test.py: 
+This is the file containing the function code. It is supported to specify a zip file as far as it doesn't exceed the maximum size for an etcd entry (1 MB).
+--handler test.foobar: 
+This specifies the file and the exposed function that will be used when receiving requests. In this example we are using the function foobar from the file test.py.
+
+kubeless function  call [funcName]
+
+kubeless function  call [funcName] --data '{"key":"value"}'
+
+kubectl get functions OR kubeless function ls
